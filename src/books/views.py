@@ -164,7 +164,7 @@ class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'book-shop/book/update_books.html'
 
     def get_success_url(self) -> str:
-        resizer(self.object.book_image)
+        resizer(self.object.book)
         return super().get_success_url()
 
 class BookDeleteView(LoginRequiredMixin, generic.DeleteView):
