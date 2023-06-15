@@ -88,7 +88,9 @@ class Book(models.Model):
         ('N', 'inactive'),
     )
 
-    active = models.CharField(max_length = 4, choices = ACTIVE)
+    active = models.CharField(max_length = 4, choices = ACTIVE,
+        blank = True, null = True                      
+    )
     rating = models.DecimalField(max_digits = 2, decimal_places = 1,
         default = 0
     )
