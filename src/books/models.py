@@ -69,7 +69,7 @@ class Book(models.Model):
         ('Super big', '84x108/8'),
     )
     format_book = models.CharField(max_length = 12, choices = FORMAT)
-    ISBN = models.CharField(max_length = 25)
+    ISBN = models.CharField(max_length = 25, blank = True, null = True)
     weight = models.DecimalField(max_digits = 6, decimal_places = 1,
         default = 0
     )
