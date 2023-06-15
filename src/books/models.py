@@ -59,9 +59,7 @@ class Book(models.Model):
         ('Soft', 'soft'),
         ('Absent', 'absent'),
     )
-    binding = models.CharField(max_length = 6, choices = BINDING,
-        default = 1          
-    )  
+    binding = models.CharField(max_length = 6, choices = BINDING)  
     FORMAT = (
         ('Super small', '84x108/64'),
         ('Small', '75x90/32'),
@@ -70,10 +68,8 @@ class Book(models.Model):
         ('Big', '60x90/8'),
         ('Super big', '84x108/8'),
     )
-    format_book = models.CharField(max_length = 12, choices = FORMAT,
-        default = 1                           
-    )
-    ISBN = models.CharField(max_length = 25, default = 1)
+    format_book = models.CharField(max_length = 12, choices = FORMAT)
+    ISBN = models.CharField(max_length = 25)
     weight = models.DecimalField(max_digits = 6, decimal_places = 1,
         default = 0
     )
@@ -92,9 +88,7 @@ class Book(models.Model):
         ('N', 'inactive'),
     )
 
-    active = models.CharField(max_length = 4, choices = ACTIVE,
-        default = 1                      
-    )
+    active = models.CharField(max_length = 4, choices = ACTIVE)
     rating = models.DecimalField(max_digits = 2, decimal_places = 1,
         default = 0
     )
