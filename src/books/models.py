@@ -94,19 +94,19 @@ class Book(models.Model):
     )
 
     def __str__(self) -> str:
-        return self.title
+        return self.book_name
     
     def get_absolute_url(self):
         return reverse_lazy('books:success-page')
     
     def book_picture_medium(self):
-        orig_url = self.image.url
+        orig_url = self.book_image.url
         new_url = orig_url.split(".")
         picture_url = ".".join(new_url[:-1]) + "_250." + new_url[-1]
         return picture_url
     
     def book_picture_small(self):
-        orig_url = self.image.url
+        orig_url = self.book_image.url
         new_url = orig_url.split(".")
         picture_url = ".".join(new_url[:-1]) + "_40." + new_url[-1]
         return picture_url
