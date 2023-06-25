@@ -11,7 +11,7 @@ class Autor(models.Model):
         return self.autor_name
     
     def get_absolute_url(self):
-        return reverse_lazy('directories:success-page')
+        return reverse_lazy('books:success-page')
 
 class Genre(models.Model):
     genre_name = models.CharField(max_length = 50)
@@ -21,7 +21,7 @@ class Genre(models.Model):
         return self.genre_name
     
     def get_absolute_url(self):
-        return reverse_lazy('directories:success-page')
+        return reverse_lazy('books:success-page')
     
 class Publishing_House(models.Model):
     publishing_house_name = models.CharField(max_length = 50)
@@ -31,7 +31,7 @@ class Publishing_House(models.Model):
         return self.publishing_house_name
     
     def get_absolute_url(self):
-        return reverse_lazy('directories:success-page')
+        return reverse_lazy('books:success-page')
 
 class Series(models.Model):
     series_name = models.CharField(max_length = 100)
@@ -41,7 +41,7 @@ class Series(models.Model):
         return self.series_name
     
     def get_absolute_url(self):
-        return reverse_lazy('directories:success-page')
+        return reverse_lazy('books:success-page')
 
 class Book(models.Model):
     title  = models.CharField(max_length = 150)
@@ -97,7 +97,7 @@ class Book(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse_lazy('directories:success-page')
+        return reverse_lazy('books:success-page')
     
     def book_picture_medium(self):
         orig_url = self.image.url
