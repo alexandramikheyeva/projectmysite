@@ -19,7 +19,7 @@ class DeleteAutorsView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Autor
     template_name = "book-shop/autor/delete_autors.html"
-    success_url = "/directories/success"
+    success_url = "/books/success"
 
 class AddAutorsView(LoginRequiredMixin, generic.CreateView):
     login_url = reverse_lazy("staff:login")
@@ -64,7 +64,7 @@ class GenreDeleteView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Genre
     template_name = 'book-shop/genre/deletegenre.html'
-    success_url = "/directories/success"
+    success_url = "/books/success"
 
 
 
@@ -93,7 +93,7 @@ class PublishingHouseDeleteView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Publishing_House
     template_name = 'book-shop/publishing_house/delete_publishing_house.html'
-    success_url = "/directories/success"
+    success_url = "/books/success"
 
 
 
@@ -122,7 +122,7 @@ class SeriesDeleteView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Series
     template_name = 'book-shop/series/delete_series.html'
-    success_url = "/directories/success"
+    success_url = "/books/success"
 
 
 
@@ -171,7 +171,7 @@ class BookDeleteView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Book
     template_name = 'book-shop/book/delete_books.html'
-    success_url = "/directories/success"
+    success_url = "/books/success"
 
 def resizer(image):
     extention = image.file.name.split('.')[-1]
