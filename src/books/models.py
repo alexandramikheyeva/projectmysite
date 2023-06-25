@@ -4,8 +4,8 @@ from django.urls import reverse_lazy
 # Create your models here.
 
 class Autor(models.Model):
-    autor_name = models.CharField(max_length = 50)
-    autor_description = models.TextField(null = True, blank = True)
+    autor_name = models.CharField(verbose_name = 'Autor name', max_length = 50)
+    autor_description = models.TextField(verbose_name = 'Autor description', null = True, blank = True)
 
     def __str__(self) -> str:
         return self.autor_name
@@ -14,8 +14,8 @@ class Autor(models.Model):
         return reverse_lazy('books:success-page')
 
 class Genre(models.Model):
-    genre_name = models.CharField(max_length = 50)
-    genre_description = models.TextField(null = True, blank = True)
+    genre_name = models.CharField(verbose_name = 'Genre', max_length = 50)
+    genre_description = models.TextField(verbose_name = 'Genre description', null = True, blank = True)
 
     def __str__(self) -> str:
         return self.genre_name
@@ -24,8 +24,8 @@ class Genre(models.Model):
         return reverse_lazy('books:success-page')
     
 class Publishing_House(models.Model):
-    publishing_house_name = models.CharField(max_length = 50)
-    publishing_house_description = models.TextField(null = True,blank = True)
+    publishing_house_name = models.CharField(verbose_name = 'Publishing house name', max_length = 50)
+    publishing_house_description = models.TextField(verbose_name = 'Publishing house description', null = True,blank = True)
 
     def __str__(self) -> str:
         return self.publishing_house_name
@@ -34,8 +34,8 @@ class Publishing_House(models.Model):
         return reverse_lazy('books:success-page')
 
 class Series(models.Model):
-    series_name = models.CharField(max_length = 100)
-    series_description = models.TextField(null = True, blank = True)
+    series_name = models.CharField(verbose_name = 'Series', max_length = 100)
+    series_description = models.TextField(verbose_name ="Count book's series", null = True, blank = True)
 
     def __str__(self) -> str:
         return self.series_name
@@ -44,9 +44,9 @@ class Series(models.Model):
         return reverse_lazy('books:success-page')
 
 class Book(models.Model):
-    title  = models.CharField(max_length = 150)
-    image = models.ImageField(blank = True, upload_to = "book/%Y/%m/%d/")
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    book_name  = models.CharField(max_length = 150)
+    book_image = models.ImageField(blank = True, upload_to = "book/%Y/%m/%d/")
+    book_price = models.DecimalField(max_digits=6, decimal_places=2)
     author = models.ForeignKey(Autor, on_delete = models.CASCADE)
     series = models.ForeignKey(Series, on_delete = models.PROTECT)
     genre = models.ForeignKey(Genre, on_delete = models.CASCADE)
