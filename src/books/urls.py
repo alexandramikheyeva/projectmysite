@@ -2,7 +2,7 @@ from django.urls import path
 
 from . import views
 
-app_name = 'directories'
+app_name = 'books'
 
 urlpatterns = [
   #Autor
