@@ -47,7 +47,7 @@ class Book(models.Model):
     book_name  = models.CharField(max_length = 150)
     book_image = models.ImageField(blank = True, upload_to = "book/%Y/%m/%d/")
     book_price = models.DecimalField(max_digits=6, decimal_places=2)
-    author = models.ForeignKey(Autor, on_delete = models.CASCADE)
+    author = models.ForeignKey('books.Autor', on_delete = models.CASCADE)
     series = models.ForeignKey(Series, on_delete = models.PROTECT)
     genre = models.ForeignKey(Genre, on_delete = models.CASCADE)
     year_publishing = models.DateField(max_length = 50)
