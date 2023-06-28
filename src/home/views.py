@@ -14,7 +14,7 @@ from PIL import Image
 #Homepage
 
 class HomePage(generic.TemplateView):
-    template_name = "home/home-page.html"
+    template_name = "home/home.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
