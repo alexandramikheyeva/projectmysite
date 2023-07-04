@@ -27,7 +27,7 @@ class HomePage(generic.TemplateView):
 #Books
 class BookView(generic.ListView):
     model = models.Book
-    template_name = 'book-shop/book/books.html'
+    template_name = 'projectmysite/book/books.html'
 
 class ViewBook(generic.ListView):
     model = models.Book
@@ -87,5 +87,5 @@ def resizer(image):
 def success_page(request):
     return render(
         request,
-        template_name='book-shop/success.html'
+        template_name='projectmysite/success.html'
     )
