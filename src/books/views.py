@@ -13,7 +13,7 @@ from PIL import Image
 #Autor
 class AuthorsView(generic.ListView):
     model = models.Author
-    template_name = "projectmysite/autor/autors.html"
+    template_name = "projectmysite/author/authors.html"
 
 class DeleteAuthorsView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
