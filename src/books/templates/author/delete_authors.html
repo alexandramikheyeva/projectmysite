@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-
-{% block TITLE %}Author{% endblock TITLE %}
-
-{% block BODY %}
-  
-  <p style=" font-size: 2em; font-weight: bold; float: center;">Delete "{{ object.author_name }}"?</p>
-  {% include "../book/includes/form_delete.html" %}
-{% endblock BODY %}
