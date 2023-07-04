@@ -30,10 +30,10 @@
 
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link" style="margin-left: 1rem;" href="{% url "directories:autors-view" %}">Авторы</a>
+            <a class="nav-link" style="margin-left: 1rem;" href="{% url "BookShop:autors-view" %}">Авторы</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="margin-left: 1rem;" href="{% url "directories:genre-list-view" %}">Жанры</a>
+            <a class="nav-link" style="margin-left: 1rem;" href="{% url "BookShop:genre-list-view" %}">Жанры</a>
           </li>
           {% if user.is_superuser %}
             <li class="nav-item">
