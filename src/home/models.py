@@ -1,3 +1,3 @@
 from django.db import models
-from books.models import Book
+from bookshop.models import Book
 # Create your models here.

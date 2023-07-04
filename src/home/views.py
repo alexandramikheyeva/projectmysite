@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from pathlib import Path
-from books.models import Book
+from bookshop.models import Book
 
 from . import models
 from PIL import Image
@@ -68,7 +68,7 @@ class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
 class BookDeleteView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Book
-    template_name = 'book-shop/book/delete_books.html'
+    template_name = 'bookshop/book/delete_books.html'
     success_url = "/directories/success"
 
 def resizer(image):
