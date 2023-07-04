@@ -121,7 +121,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = local_settings.MEDIA_ROOT_local
+MEDIA_ROOT = local_settings.MEDIA_ROOT
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
