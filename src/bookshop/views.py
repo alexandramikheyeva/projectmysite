@@ -13,12 +13,12 @@ from PIL import Image
 #Autor
 class AuthorsView(generic.ListView):
     model = models.Author
-    template_name = "bookshop/author/authors.html"
+    template_name = "book-shop/author/authors.html"
 
 class DeleteAuthorsView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Author
-    template_name = "bookshop/author/delete_authors.html"
+    template_name = "book-shop/author/delete_authors.html"
     success_url = "/bookshop/success"
 
 class AddAuthorsView(LoginRequiredMixin, generic.CreateView):
@@ -27,7 +27,7 @@ class AddAuthorsView(LoginRequiredMixin, generic.CreateView):
     fields = [
         'author_name', 'author_description'
     ]
-    template_name = "bookshop/author/add_authors.html" 
+    template_name = "book-shop/author/add_authors.html" 
         
 class UpdateAuthorsView(LoginRequiredMixin, generic.UpdateView):
     login_url = reverse_lazy("staff:login")
@@ -35,7 +35,7 @@ class UpdateAuthorsView(LoginRequiredMixin, generic.UpdateView):
     fields = [
         'author_name', 'author_description'
     ]
-    template_name = "bookshop/author/update_authors.html"
+    template_name = "book-shop/author/update_authors.html"
 
 
 
@@ -64,7 +64,7 @@ class GenreDeleteView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Genre
     template_name = 'book-shop/genre/deletegenre.html'
-    success_url = "/books/success"
+    success_url = "/bookshop/success"
 
 
 
@@ -129,7 +129,7 @@ class SeriesDeleteView(LoginRequiredMixin, generic.DeleteView):
 #Books
 class BookView(generic.ListView):
     model = models.Book
-    template_name = 'bookshop/book/books.html'
+    template_name = 'book-shop/book/books.html'
 
 class ViewBook(generic.DetailView):
     model = models.Book
@@ -139,7 +139,7 @@ class ViewBook(generic.DetailView):
             'ISBN', 'weight', 'age_restrictions', 'publishing_house', 
               'counter_book', 'active', 'rating'
     ]
-    template_name = 'bookshop/book/view_books.html'
+    template_name = 'book-shop/book/view_books.html'
     
 class BookCreateView(LoginRequiredMixin, generic.CreateView):
     login_url = reverse_lazy("staff:login")
@@ -150,7 +150,7 @@ class BookCreateView(LoginRequiredMixin, generic.CreateView):
             'ISBN', 'weight', 'age_restrictions', 'publishing_house', 
               'counter_book', 'active', 'rating'
     ]
-    template_name = 'bookshop/book/create_books.html'
+    template_name = 'book-shop/book/create_books.html'
 
 class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
     login_url = reverse_lazy("staff:login")
@@ -161,7 +161,7 @@ class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
             'ISBN', 'weight', 'age_restrictions', 'publishing_house', 
               'counter_book', 'active', 'rating'
     ]
-    template_name = 'bookshop/book/update_books.html'
+    template_name = 'book-shop/book/update_books.html'
 
     def get_success_url(self) -> str:
         resizer(self.object.book)
@@ -170,8 +170,8 @@ class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
 class BookDeleteView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Book
-    template_name = 'bookshop/book/delete_books.html'
-    success_url = "/books/success"
+    template_name = 'book-shop/book/delete_books.html'
+    success_url = "/bookshop/success"
 
 def resizer(image):
     extention = image.file.name.split('.')[-1]
