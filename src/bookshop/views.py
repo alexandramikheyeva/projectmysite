@@ -93,7 +93,7 @@ class PublishingHouseDeleteView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Publishing_House
     template_name = 'book-shop/publishing_house/delete_publishing_house.html'
-    success_url = "/books/success"
+    success_url = "/bookshop/success"
 
 
 
@@ -122,7 +122,7 @@ class SeriesDeleteView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Series
     template_name = 'book-shop/series/delete_series.html'
-    success_url = "/books/success"
+    success_url = "/bookshop/success"
 
 
 
