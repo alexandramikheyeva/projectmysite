@@ -14,7 +14,7 @@ from PIL import Image
 #Homepage
 
 class HomePage(generic.TemplateView):
-    template_name = "home/home.html"
+    template_name = "home/home-page.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -27,7 +27,7 @@ class HomePage(generic.TemplateView):
 #Books
 class BookView(generic.ListView):
     model = models.Book
-    template_name = 'projectmysite/book/books.html'
+    template_name = 'book-shop/book/books.html'
 
 class ViewBook(generic.ListView):
     model = models.Book
@@ -37,7 +37,7 @@ class ViewBook(generic.ListView):
             'ISBN', 'weight', 'age_restrictions', 'publishing_house', 
               'counter_book', 'active', 'rating'
     ]
-    template_name = 'book-shop/book/view_book.html'
+    template_name = 'book-shop/book/view_books.html'
     
 class BookCreateView(LoginRequiredMixin, generic.CreateView):
     login_url = reverse_lazy("staff:login")
@@ -68,8 +68,8 @@ class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
 class BookDeleteView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Book
-    template_name = 'bookshop/book/delete_books.html'
-    success_url = "/directories/success"
+    template_name = 'book-shop/book/delete_books.html'
+    success_url = "/bookshop/success"
 
 def resizer(image):
     extention = image.file.name.split('.')[-1]
@@ -87,5 +87,5 @@ def resizer(image):
 def success_page(request):
     return render(
         request,
-        template_name='bookshop/success.html'
+        template_name='book-shop/success.html'
     )
