@@ -4,11 +4,11 @@ from django.urls import reverse_lazy
 # Create your models here.
 
 class Author(models.Model):
-    autor_name = models.CharField(verbose_name = 'Author name', max_length = 50)
-    autor_description = models.TextField(verbose_name = 'Author description', null = True, blank = True)
+    author_name = models.CharField(verbose_name = 'Author name', max_length = 50)
+    author_description = models.TextField(verbose_name = 'Author description', null = True, blank = True)
 
     def __str__(self) -> str:
-        return self.autor_name
+        return self.author_name
     
     def get_absolute_url(self):
         return reverse_lazy('books:success-page')
