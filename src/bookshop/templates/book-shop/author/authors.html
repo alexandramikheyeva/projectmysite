@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block TITLE %}Author{% endblock TITLE %}
+
+{% block BODY %}
+  {% if user.is_superuser %}
+    <form action="{% url 'BookShop:add-authors' %}">
+      <button class="btn btn-primary">Добавить</button>
+    </form>
+  {% endif %}
+
+  <ul>
+    {% for object in object_list %}
+       <li>
+          <a href="{% url 'search:search' %}?q={{ object.author_name }}">
+             {{ object.autor_name }}  
+          </a>
+          {% if user.is_superuser %}
+            <a href="{% url 'BookShop:update-authors' pk=object.pk %}" 
+              style ="margin-left:5%">Изменить</a>
+
+            <a href="{% url 'BookShop:delete-authors' pk=object.pk %}" 
+              style ="margin: .1rem .1rem">Удалить</a>
+
+          {% endif %}
+       </li>
+    
+        
+    {% endfor %}
+ </ul>
+
+{% endblock BODY %} 
