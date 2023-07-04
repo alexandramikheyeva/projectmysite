@@ -129,7 +129,7 @@ class SeriesDeleteView(LoginRequiredMixin, generic.DeleteView):
 #Books
 class BookView(generic.ListView):
     model = models.Book
-    template_name = 'book-shop/book/books.html'
+    template_name = 'bookshop/book/books.html'
 
 class ViewBook(generic.DetailView):
     model = models.Book
@@ -139,7 +139,7 @@ class ViewBook(generic.DetailView):
             'ISBN', 'weight', 'age_restrictions', 'publishing_house', 
               'counter_book', 'active', 'rating'
     ]
-    template_name = 'book-shop/book/view_book.html'
+    template_name = 'bookshop/book/view_books.html'
     
 class BookCreateView(LoginRequiredMixin, generic.CreateView):
     login_url = reverse_lazy("staff:login")
@@ -150,7 +150,7 @@ class BookCreateView(LoginRequiredMixin, generic.CreateView):
             'ISBN', 'weight', 'age_restrictions', 'publishing_house', 
               'counter_book', 'active', 'rating'
     ]
-    template_name = 'book-shop/book/create_books.html'
+    template_name = 'bookshop/book/create_books.html'
 
 class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
     login_url = reverse_lazy("staff:login")
@@ -161,7 +161,7 @@ class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
             'ISBN', 'weight', 'age_restrictions', 'publishing_house', 
               'counter_book', 'active', 'rating'
     ]
-    template_name = 'book-shop/book/update_books.html'
+    template_name = 'bookshop/book/update_books.html'
 
     def get_success_url(self) -> str:
         resizer(self.object.book)
@@ -170,7 +170,7 @@ class BookUpdateView(LoginRequiredMixin, generic.UpdateView):
 class BookDeleteView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
     model = models.Book
-    template_name = 'book-shop/book/delete_books.html'
+    template_name = 'bookshop/book/delete_books.html'
     success_url = "/books/success"
 
 def resizer(image):
@@ -189,6 +189,6 @@ def resizer(image):
 def success_page(request):
     return render(
         request,
-        template_name='book-shop/success.html'
+        template_name='bookshop/success.html'
     )
 

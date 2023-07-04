@@ -87,5 +87,5 @@ def resizer(image):
 def success_page(request):
     return render(
         request,
-        template_name='projectmysite/success.html'
+        template_name='bookshop/success.html'
     )
