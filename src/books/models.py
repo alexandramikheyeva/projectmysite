@@ -3,9 +3,9 @@ from django.urls import reverse_lazy
 
 # Create your models here.
 
-class Autor(models.Model):
-    autor_name = models.CharField(verbose_name = 'Autor name', max_length = 50)
-    autor_description = models.TextField(verbose_name = 'Autor description', null = True, blank = True)
+class Author(models.Model):
+    autor_name = models.CharField(verbose_name = 'Author name', max_length = 50)
+    autor_description = models.TextField(verbose_name = 'Author description', null = True, blank = True)
 
     def __str__(self) -> str:
         return self.autor_name
@@ -47,7 +47,7 @@ class Book(models.Model):
     book_name  = models.CharField(max_length = 150)
     book_image = models.ImageField(blank = True, upload_to = "book/%Y/%m/%d/")
     book_price = models.DecimalField(max_digits=6, decimal_places=2)
-    author = models.ForeignKey(Autor, on_delete = models.CASCADE)
+    author = models.ForeignKey(Author, on_delete = models.CASCADE)
     series = models.ForeignKey(Series, on_delete = models.PROTECT)
     genre = models.ForeignKey(Genre, on_delete = models.CASCADE)
     year_publishing = models.DateField(max_length = 50)

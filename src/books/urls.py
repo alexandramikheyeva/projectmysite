@@ -6,10 +6,10 @@ app_name = 'books'
 
 urlpatterns = [
   #Autor
-      path('autors/', views.AutorsView.as_view(), name="autors-view"),
-      path('add_autors/', views.AddAutorsView.as_view(), name="add-autors"),
-      path('delete_autors/<int:pk>', views.DeleteAutorsView.as_view(), name="delete-autors"),
-      path('update_autors/<int:pk>', views.UpdateAutorsView.as_view(), name="update-autors"),
+      path('authors/', views.AuthorsView.as_view(), name="authors-view"),
+      path('add_autors/', views.AddAuthorsView.as_view(), name="add-autors"),
+      path('delete_autors/<int:pk>', views.DeleteAuthorsView.as_view(), name="delete-autors"),
+      path('update_autors/<int:pk>', views.UpdateAuthorsView.as_view(), name="update-autors"),
   #Genre
       path('genres/', views.GenreListView.as_view(), name="genre-list-view"),
       path('creategenre/', views.GenreCreateView.as_view(), name="create-genre"),

@@ -11,27 +11,27 @@ from . import models
 from PIL import Image
 
 #Autor
-class AutorsView(generic.ListView):
-    model = models.Autor
+class AuthorsView(generic.ListView):
+    model = models.Author
     template_name = "projectmysite/autor/autors.html"
 
-class DeleteAutorsView(LoginRequiredMixin, generic.DeleteView):
+class DeleteAuthorsView(LoginRequiredMixin, generic.DeleteView):
     login_url = reverse_lazy("staff:login")
-    model = models.Autor
+    model = models.Author
     template_name = "book-shop/autor/delete_autors.html"
     success_url = "/books/success"
 
-class AddAutorsView(LoginRequiredMixin, generic.CreateView):
+class AddAuthorsView(LoginRequiredMixin, generic.CreateView):
     login_url = reverse_lazy("staff:login")
-    model = models.Autor
+    model = models.Author
     fields = [
         'autor_name', 'autor_description'
     ]
     template_name = "book-shop/autor/add_autors.html" 
         
-class UpdateAutorsView(LoginRequiredMixin, generic.UpdateView):
+class UpdateAuthorsView(LoginRequiredMixin, generic.UpdateView):
     login_url = reverse_lazy("staff:login")
-    model = models.Autor
+    model = models.Author
     fields = [
         'autor_name', 'autor_description'
     ]

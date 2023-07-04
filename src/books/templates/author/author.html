@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block TITLE %}Author{% endblock TITLE %}
+
+{% block BODY %}
+  {% if user.is_superuser %}
+    <form action="{% url 'directories:add-authors' %}">
+      <button class="btn btn-primary">Добавить</button>
+    </form>
+  {% endif %}
+
+  <ul>
+    {% for object in object_list %}
+       <li>
+          <a href="{% url 'search:search' %}?q={{ object.author_name }}">
+             {{ object.author_name }}  
+          </a>
+          {% if user.is_superuser %}
+            <a href="{% url 'directories:update-authors' pk=object.pk %}" 
+              style ="margin-left:5%">Изменить</a>
+
+            <a href="{% url 'directories:delete-authors' pk=object.pk %}" 
+              style ="margin: .1rem .1rem">Удалить</a>
+
+          {% endif %}
+       </li>
+    
+        
+    {% endfor %}
+ </ul>
+
+{% endblock BODY %} 
