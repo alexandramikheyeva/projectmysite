@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <img src="{{ object.cover_image.url }}" alt="{{ object.title }}" class="card-img-top">
+      </div>
+      <div class="col-md-8">
+        <h1 class="mb-3">{{ object.title }}</h1>
+        <div class="float-right">
+            <a href="{% url 'cart:book_add_to_cart.html' pk=object.pk %}">
+            <button class="btn btn-primary float-right" style="right: 0;">Добавить в корзину</button>
+        </a>
+        </div>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">Автор(ы)</th>
+              <td>{{ object.author }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Серия</th>
+              <td>{{ object.series }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Жанр(ы)</th>
+              <td>{{ object.genre }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Издательство</th>
+              <td>{{ object.publishing_house }}</td>
+            </tr>
+            <tr>
+              <th scope="row">ISBN</th>
+              <td>{{ object.isbn }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Страницы</th>
+              <td>{{ object.page }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Тип обложки</th>
+              <td>{{ object.binding }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Формат</th>
+              <td>{{ object.format }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Год выпуска</th>
+              <td>{{ object.year_publishing }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Вес</th>
+              <td>{{ object.weight }} гр.</td>
+            </tr>
+            <tr>
+              <th scope="row">Ограничение по возрасту</th>
+              <td>{{ object.age_restrictions }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Наличие на складе</th>
+              <td>{% if object.active %}Есть в наличии{% else %}Нет в наличии{% endif %}</td>
+            </tr>
+            <tr>
+              <th scope="row">Цена</th>
+              <td>{{ object.book_price }} ₽</td>
+            </tr>
+            <tr>
+              <th scope="row">Рейтинг</th>
+              <td>{{ object.rating }}/10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% comment %} {{ object.book_name }} <br>
+{{ object.book_image }} <br>
+{{ object.book_price }} <br>
+{{ object.author }} <br>
+{{ object.series }} <br>
+{{ object.genre }} <br>
+{{ object.year_publishing }} <br>
+{{ object.page }} <br>
+{{ object.binding }} <br>
+{{ object.format }} <br>
+{{ object.isbn }} <br>
+{{ object.weight }} <br>
+{{ object.age_restrictions }} <br>
+{{ object.publishing_house }} <br>
+{{ object.counter_book }} <br>
+{{ object.active }} <br>
+{{ object.rating }} <br>
+{{ object.date_added }} <br>
+{{ object.date_updated }} <br> {% endcomment %}
+<style>
+    th {
+      width: 30%;
+    }
+    .fas.fa-star {
+      color: #ffc107;
+    }
+    
+  </style>
+{% endblock %}
