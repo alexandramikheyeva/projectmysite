@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <h1>Hi all, there is a list of all publishings houses</h1>
+  <div> Чтобы добавить автора нажмите   <a href="{% url 'bookshop:create_publishing_house' %}">Create publishing house</a>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Publishing Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+        <tr>
+          <td>{{ object.publishing_name }}</td>
+          <td>{{ object.publishing_description }}</td>
+          <td>
+            <a href="{% url 'bookshop:update_publishing_house' pk=object.pk %}">Update</a>
+            <a href="{% url 'bookshop:delete_publishing_house' pk=object.pk %}">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
