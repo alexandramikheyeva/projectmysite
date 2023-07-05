@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <h1>Hi all, there is a list of all genres</h1>
+  <div> To add a genre press   <a href="{% url 'bookshop:creategenre' %}">Create Genre</a>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Genre Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+        <tr>
+          <td>{{ object.genre_name }}</td>
+          <td>{{ object.genre_description }}</td>
+          <td>
+            <a href="{% url 'bookshop:updategenre' pk=object.pk %}">Edit</a>
+            <a href="{% url 'bookshop:deletegenre' pk=object.pk %}">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
