@@ -6,7 +6,7 @@ app_name = 'bookshop'
 
 urlpatterns = [
   #Author
-      path('authors/', views.AuthorsView.as_view(), name="authors-view"),
+      path('authors_view/', views.AuthorsView.as_view(), name="authors-view.html"),
       path('add_autors/', views.AddAuthorsView.as_view(), name="add-authors"),
       path('delete_autors/<int:pk>', views.DeleteAuthorsView.as_view(), name="delete-authors"),
       path('update_autors/<int:pk>', views.UpdateAuthorsView.as_view(), name="update-authors"),
