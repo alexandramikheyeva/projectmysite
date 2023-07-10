@@ -51,7 +51,7 @@
         {% if user.is_authenticated %}
 
         {% comment %} CART {% endcomment %}
-        <form action="{% url 'cart:view_cart' %}" class="d-flex">
+        <form action="{% url 'cart:cart_view' %}" class="d-flex">
           <button class="btn btn-outline-light" style="margin-right: 20px;">
 
               {{ request.number_of_items_in_cart }}
