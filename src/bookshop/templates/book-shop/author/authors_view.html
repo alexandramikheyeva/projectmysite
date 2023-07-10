@@ -4,7 +4,7 @@
 
 {% block BODY %}
   {% if user.is_superuser %}
-    <form action="{% url 'BookShop:add-authors' %}">
+    <form action="{% url 'bookshop:add-authors' %}">
       <button class="btn btn-primary">Добавить</button>
     </form>
   {% endif %}
@@ -16,7 +16,7 @@
              {{ object.autor_name }}  
           </a>
           {% if user.is_superuser %}
-            <a href="{% url 'BookShop:update-authors' pk=object.pk %}" 
+            <a href="{% url 'bookshop:update-authors' pk=object.pk %}" 
               style ="margin-left:5%">Изменить</a>
 
             <a href="{% url 'BookShop:delete-authors' pk=object.pk %}" 
