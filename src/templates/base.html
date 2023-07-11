@@ -19,61 +19,87 @@
 
 <header>
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/" style="color: seagreen;">BookShop</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+    <div class="container-fluid" 
+      style="background: white; text-align: center; font-family:Arial, Helvetica, sans-serif;width: 90%; 
+      box-shadow: -1px 0px 8px rgba(0,0,0,0.2); padding-top: 2%; margin-top: -1.9%;">
+      <a class="navbar-brand" href="/" style="color: seagreen; font-size: 3.2rem; margin-left: 40px;">
+          <span style="color: black;"><b>Boo</span></b>Shop
+      </a>
       <div class="collapse navbar-collapse" id="navbarCollapse">
-
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link" style="margin-left: 1rem;" href="{% url "bookshop:authors-view.html" %}">Авторы</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" style="margin-left: 1rem;" href="{% url "bookshop:genre-list-view" %}">Жанры</a>
-          </li>
-          {% if user.is_superuser %}
-            <li class="nav-item">
-              <a class="nav-link" style="margin-left: 1rem;" href="{% url "cart:orders_all" %}">Управление заказами</a>
-            </li>
-          {% endif %}
-          
-        </ul>
-        
-        <form class="d-flex" role="search" style="padding-right: 30%" action="{% url 'search:search' %}">
-          <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" name="q">
-          <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
-
+{% comment %} search {% endcomment %}
         {% if user.is_authenticated %}
-
+        <div id="search-box" style="margin-right:6%; ">
+          <form role="search"  action="{% url 'search:search' %}"  style="font-size: 1rem; margin: 0.6rem 30px 0 1rem;">
+            <div class="input-group searchterm">
+              <div class="form-field no-label" >
+                <input class="form-control" type="search" placeholder="Поиск" aria-label="Search" name="q" 
+                  style="border-radius: 40px 0 0 40px; width: 600px; margin-right: 0%; border-color: grey;">
+              </div>
+              <button class="btn btn-primary btn-icon-only icon-search" type="submit" 
+                style=" border-radius: 0 40px 40px 0; background-color: grey; border-color: grey; position:absolute; top: 0; left: 600px;">
+                <ion-icon name="search-outline"></ion-icon>
+              </button>
+            </div>
+          </form>
+        </div>
+        {% else %}
+        <div id="search-box" style="margin-right:6%; ">
+          <form role="search"  action="{% url 'search:search' %}"  style="font-size: 1rem; margin: 0.6rem 30px 0 1rem;">
+            <div class="input-group searchterm">
+              <div class="form-field no-label" >
+                <input class="form-control" type="search" placeholder="Поиск" aria-label="Search" name="q" 
+                  style="border-radius: 40px 0 0 40px; width: 600px; margin-right: 0%; border-color: grey;">
+              </div>
+              <button class="btn btn-primary btn-icon-only icon-search" type="submit" 
+                style=" border-radius: 0 40px 40px 0; background-color: grey; border-color: grey; position:absolute; top: 0; left: 600px;">
+                <ion-icon name="search-outline"></ion-icon>
+              </button>
+            </div>
+          </form>
+        </div>
+        {% endif %}
+    
+{% comment %} search {% endcomment %}
+        {% if user.is_authenticated %}
+        <!-- Курс по нац банку -->
+        <iframe src="https://www.nbrb.by/statistics/rates/banner.asp?lan=ru&datatype=0
+          &fnt=Tahoma, Arial&fntsize=9.5px&fntcolor=black
+          &lnkcolor=seagreen&bgcolor=white&brdcolor=white"
+          width=180px height=85px scrolling=no frameborder=0 style="margin: 0 10px 0 0;"></iframe>
         {% comment %} CART {% endcomment %}
-        <form action="{% url 'cart:cart_view' %}" class="d-flex">
-          <button class="btn btn-outline-light" style="margin-right: 20px;">
-
+        <form action="{% url 'cart:view_cart' %}" class="d-flex">
+          <button class="btn btn-outline-dark position-relative" style="margin: 15% 30px 0 0; border-color: white; background: white; color: #212529;">
+            <ion-icon name="bag-handle-outline" style="font-size: 2rem;"></ion-icon>
+            <span class="position-absolute top-40 start-100 translate-middle badge rounded-pill" style="margin-top: 0.4rem; background-color: seagreen;">
               {{ request.number_of_items_in_cart }}
-              <ion-icon name="cart-outline"></ion-icon>
-
+              <span class="visually-hidden">unread messages</span>
+            </span>
           </button>
+          
         </form>
         {% comment %} CART {% endcomment %}
-
-          <form action="{% url 'profile:profile_view' %}" class="d-flex">
-            <button class="btn btn-outline-light">
-              {{ user }}
-              <ion-icon name="person-circle-outline"></ion-icon>
+          <form action="{% url 'user_profile:profile' %}" class="d-flex" style="margin-right: 0; margin-top: 0.8rem;">
+            <button class="btn btn-outline-dark" style=" border-color: white; background: white; color: #212529;" >
+              <ion-icon name="person-circle-outline" style="font-size: 2rem;"></ion-icon> 
+              <p style="margin-top: -0.8rem; text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden; width:60px">{{ user }}</p>
             </button>
           </form>
         {% else %}
-
-          <form action="{% url 'staff:login' %}" class="d-flex">
-            <button class="btn btn-outline-success" >Login</button>
+        <!-- Курс по нац банку -->
+        <iframe src="https://www.nbrb.by/statistics/rates/banner.asp?lan=ru&datatype=0
+          &fnt=Tahoma, Arial&fntsize=9.5px&fntcolor=black
+          &lnkcolor=seagreen&bgcolor=white&brdcolor=white"
+          width=180px height=85px scrolling=no frameborder=0 style="margin: 0 50px 0 0;"></iframe>
+          <form action="{% url 'staff:login' %}" class="d-flex" style="margin-right: 0; margin-top: 0.8rem;">
+            <button class="btn btn-outline-dark" style=" border-color: white; background: white; color: #212529;" >
+              <ion-icon name="person-circle-outline" style="font-size: 2rem;"></ion-icon> 
+              <p style="margin-top: -1rem;">Login</p>
+            </button>
           </form>
         {% endif %}
-
       </div>
     </div>
   </nav>
@@ -81,12 +107,15 @@
 
 <!-- Begin page content -->
 <main class="flex-shrink-0">
-  <div style= " box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  margin: 3% auto 0;
-  max-width: 90%;
-  min-height: 100%;
-  padding: 20px;
-  text-align: center;">
+  {% if user.is_superuser %}
+  <div style= "box-shadow: 0 4px 6px rgba(0,0,0,0.2); margin: 6.6% auto 0; max-width: 90%; 
+    min-height: 100%; text-align: center; font-family:Arial, Helvetica, sans-serif;">
+  {% else %}
+  <div style= "box-shadow: 0 4px 6px rgba(0,0,0,0.2); margin: 6.3% auto 0; max-width: 90%; 
+    min-height: 100%; text-align: center; font-family:Arial, Helvetica, sans-serif;">
+  {% endif %}
+  
+    
     {% block BODY %}{% endblock BODY %}
   </div>
   
