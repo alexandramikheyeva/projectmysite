@@ -1,102 +1,206 @@
 {% extends 'base.html' %}
-{% block head %}
+{% load crispy_forms_tags %}
+
+
+{% block TITLE %}Profile{% endblock TITLE %}
+
+{% block HEAD %}
 <style>
-  .profile-table {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    float: left;
+  #knigi{
+    background-color: grey;
+    color: white;
+    border: 0;
   }
-  .btn {
-    margin-left: auto;
+  #knigi:hover{
+    background-color: darkgrey;
+    color: white;
+    border: 0;
   }
-  .order-table {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    float: right;
+  #series{
+    background-color: grey;
+    color: white;
+    border: 0;
+  }
+  #series:hover{
+    background-color: darkgrey;
+    color: white;
+    border: 0;
+  }
+  #genres{
+    background-color: grey;
+    color: white;
+    border: 0;
+  }
+  #genres:hover{
+    background-color: darkgrey;
+    color: white;
+    border: 0;
+  }
+  #autors{
+    background-color: grey;
+    color: white;
+    border: 0;
+  }
+  #autors:hover{
+    background-color: darkgrey;
+    color: white;
+    border: 0;
+  }
+  #zakaz{
+    background-color: grey;
+    color: white;
+    border: 0;
+  }
+  #zakaz:hover{
+    background-color: darkgrey;
+    color: white;
+    border: 0;
   }
 </style>
-{% endblock head %}
-{% block body %}
-<div class="row">
-  <div class="col-md-6">
-    <h1>Профиль</h1>
+<!--  background-color: grey; -->
+{% endblock HEAD %}
 
-    {% if profile %}
-    <table class="profile-table">
-        <tr>
-          <th>Пользователь:</th>
-          <td>{{ profile.user }}</td></tr>
-        <tr>
-          <th>Имя:</th>
-          <td>{{ profile.first_profile_name }}</td></tr>
-        <tr>
-          <th>Фамилия:</th>
-          <td>{{ profile.last_profile_name }}</td></tr>
-        <tr>
-          <th>Email:</th>
-          <td>{{ profile.email_profile }}</td></tr>
-        <tr>
-          <th>Телефон:</th>
-          <td>{{ profile.phone }}</td></tr>
-        <tr>
-          <th>Группа:</th>
-          <td>{{ profile.group }}</td></tr>
-        <tr>
-          <th>Доп информация:</th>
-          <td>{{ profile.additional_info }}</td></tr>
-        <tr>
-          <th>Страна:</th>
-          <td>{{ profile.address.country }}</td></tr>
-        <tr>
-          <th>Город:</th>
-          <td>{{ profile.address.city }}</td></tr>
-        <tr>
-          <th>Код города:</th>
-          <td>{{ profile.address.postal_code }}</td></tr>
-        <tr>
-          <th>Основной адрес:</th>
-          <td>{{ profile.address.address_line_1 }}</td></tr>
-        <tr>
-          <th>Дополнительный адрес:</th>
-          <td>{{ profile.address.address_line_2 }}</td></tr>
-        <tr>
-          <th><a href="{% url 'profile:profile_edit' %}" class="btn btn-primary">Редактировать профиль</a> </th>
-          <td></td></tr>
-      </table>
-    
-  </div>
-
-  <div class="col-md-6">
-    <table class="order-table">
-      <thead>
-        <tr>
-          <th>Пользователь</th>
-          <th>Стоимость</th>
-          <th>Статус</th>
-          <th>Создан</th>
-          <th>Количество книг</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for order in orders %}
-        <tr>
-          <td>{{ order.user }}</td>
-          <td>{{ order.price }}</td>
-          <td>{{ order.status }}</td>
-          <td>{{ order.created }}</td>
-          <td>{{ order.books.count }}</td>
-        </tr>
+{% block BODY %}
+{% block content %}
+{% include "book-shop/book/includes/nav_bar.html" %}
+<div class="container h-100">
+  <div class="row" style=" border-bottom: 1px solid grey;margin-bottom: 2%; padding-top: 2%;">
+    <!-- Добавить группу -->
+    <span style="text-align: left; margin-bottom: -1.5%;font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;">Личные данные</span> <span style="text-align: right; margin-bottom: 0.5%;font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;">
+      {% if groups %}
+        {% for group in groups %}
+          {{ group.name }}
         {% endfor %}
-      </tbody>
-    </table>
+      {% endif %}</span>
   </div>
-</div>
+  <div class="row" style="padding-bottom: 2%;">
+    {% if account.gender == 'Мужской' %}
+      <img src="/media/user/male.jpg" alt=" " style="height: 250px; width: 250px; margin-left: 15px;">
+    {% elif account.gender == 'Женский' %}
+      <img src="/media/user/female.jpg" alt=" " style="height: 250px; width: 250px; margin-left: 15px;">
+    {% else %}
+      {% comment %} КРЕСТИК {% endcomment %}
+    {% endif %}
 
-{% else %}
-<p>Профиль не найден</p>
-{% endif %}
+    <div class="col" style="margin-left: 2%;">
+      <div class="row" style="text-align: left; border-bottom: 1px solid grey; display: inline;">
+        <p>
+          {% if user.first_name != "" %}
+            <span style="font-size: 28px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;">{{ user.first_name }}</span>
+          {% endif %}
+          {% if user.last_name != "" %}
+            <span style="font-size: 28px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;">{{ user.last_name }}</span>
+          {% endif %}
+          |   
+          <a href="{% url 'user_profile:update-account' user.id%}" style=" text-decoration: none; color: grey;">Изменить данные</a>
+          |   
+          <a href="{% url 'staff:logout' %}" style=" text-decoration: none; color: grey;">Выйти</a>
+        </p>
+        {% if account.view_personal_info %}
+          <p style="color: green; border-bottom: 1px solid grey;"><ion-icon name="checkmark-circle-outline"></ion-icon> Отображать персональные данные</p>
+        {% else %}
+          <p style="color: grey; border-bottom: 1px solid grey;"><ion-icon name="close-circle-outline"></ion-icon> Не отображать персональные данные</p>
+        {% endif %}
+      </div>
+      <div class="row" style="text-align: left; border-bottom: 1px solid grey; margin-left: 0%;">
+        <p class="text-muted mb-0" style="font-size: 12px; margin-top:-2%">Логин</p>
+        <p>{{ user.username }}</p>
+      </div>
+      {% if account.view_personal_info %}
+      <div class="row" style="text-align: left; border-bottom: 1px solid grey; margin-left: 0%;">
+          <p class="text-muted mb-0" style="font-size: 12px; margin-top:2%">Email</p>
+          <p>{{ user.email }}</p>
+      </div>
+      {% else %}
+      <div class="row" style="text-align: left; margin-left: 0.5%;">
+        <p class="text-muted mb-0" style="font-size: 12px; margin-top:2%"></p>
+        <p></p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% if not account.view_personal_info%}
+  <div class="row" style="text-align: left;">
+    <p class="text-muted mb-0" style="font-size: 12px"></p>
+          <p></p>
+          <p style="margin-top:-1.5%"></p>
+  </div>
+  {% else %}
+  <div class="row" style="text-align: left; border-bottom: 1px solid grey;">
+    <p class="text-muted mb-0" style="font-size: 12px">Данные доставки</p>
+          <p>Телефон: {{ account.phone }}</p>
+          <p style="margin-top:-1.5%">Адрес доставки: {{ account.address }}</p>
+  </div>
+  {% endif %}
+  
+  <div class="row">
+    <p class=" mb-0" style="font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;color: black; text-align: left; margin-top: 1%; padding-bottom: 1%">История заказов:</p>
+                {% for order in orders %}
+                  <p style=" margin-top: -1%; margin-bottom: -1%;">
+                    {% if order.status == "В обработке" %}
+                    <a href="{% url 'cart:order_details' order.id %}" style="text-decoration: none; color: black;">
+                      <div class="btn" style="height: 40px; width: 100%; border-color: black;text-align: left;">
+                        <span style="margin-left: 10%;">Заказ №{{ order.id }}</span>
+                        <span style="margin-left: 60%;">
+                            В обработке
+                           <ion-icon name="reload-outline"></ion-icon>
+                         </span>
+                       </div>    
+                    </a>
+                    {% elif order.status == "Выполняется" %}
+                    <a href="{% url 'cart:order_details' order.id %}" style="text-decoration: none; color: black;">
+                      <div class="btn" style="height: 40px; width: 100%; border-color: black;text-align: left;">
+                        <span style="margin-left: 10%;">Заказ №{{ order.id }}</span>
+                        <span style="margin-left: 60%;">
+                            Выполняется
+                            <ion-icon name="car-outline"></ion-icon>
+                         </span>
+                       </div>    
+                    </a>
+                    {% elif order.status == "Доставлено" %}
+                    <a href="{% url 'cart:order_details' order.id %}" style="text-decoration: none; color: black;">
+                      <div class="btn" style="height: 40px; width: 100%; border-color: black;text-align: left;">
+                         <span style="margin-left: 10%;">Заказ №{{ order.id }}</span>
+                         <span style="margin-left: 60%;">
+                            Доставлено
+                            <ion-icon name="chevron-down-circle-outline"></ion-icon>
+                         </span>
+                       </div>    
+                    </a>
+                    {% elif order.status == "Отменен" %}
+                    <a href="{% url 'cart:order_details' order.id %}" style="text-decoration: none; color: black;">
+                      <div class="btn" style="height: 40px; width: 100%; border-color: black;text-align: left;">
+                        <span style="margin-left: 10%;">Заказ №{{ order.id }}</span>
+                        <span style="margin-left: 60%;">
+                           Отменен
+                            <ion-icon name="close-outline"></ion-icon>
+                         </span>
+                       </div>    
+                    </a>
+                    {% endif %}
+                  </p>
+                {% empty %}
+                  <p>Заказы отсутствуют</p>
+                {% endfor %}
+
+
+            </div>
+  </div>
+  </div>
 {% endblock %}
+{% endblock BODY %}
