@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookshop',
+    'crispy-forms'
     'home',
     'cart',
     'search', 
