@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'search', 
     'user_profile',
     'staff'
-    'bootstrap5'
+    'crispy_bootstrap5'
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap5'
