@@ -23,9 +23,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('bookshop/', include('bookshop.urls', namespace='bookshop')),
+    path('staff/', include('staff.urls', namespace='staff')),
     path('cart/', include('cart.urls'), name='cart'),
     path('search/', include('search.urls'), name='search'),
-       path('profile/', include('user_profile.urls'), name='profile'),
+    path('profile/', include('user_profile.urls'), name='profile'),
     path('', home_views.HomePage.as_view(), name= 'homepage'),
 ] 
 if settings.DEBUG:
