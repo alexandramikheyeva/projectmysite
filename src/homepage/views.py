@@ -14,7 +14,7 @@ from PIL import Image
 #Homepage
 
 class HomePage(generic.TemplateView):
-    template_name = "home/home-page.html"
+    template_name = "homepage/home-page.html"
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -37,7 +37,7 @@ class ViewBook(generic.ListView):
             'ISBN', 'weight', 'age_restrictions', 'publishing_house', 
               'counter_book', 'active', 'rating'
     ]
-    template_name = 'book-shop/book/view_books.html'
+    template_name = 'book-shop/book/view_book.html'
     
 class BookCreateView(LoginRequiredMixin, generic.CreateView):
     login_url = reverse_lazy("staff:login")
@@ -87,5 +87,5 @@ def resizer(image):
 def success_page(request):
     return render(
         request,
-        template_name='book-shop/success.html'
+        template_name='bookshop/success.html'
     )

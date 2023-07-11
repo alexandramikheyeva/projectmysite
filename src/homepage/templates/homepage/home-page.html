@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block TITLE %}BookShop{% endblock TITLE %}
+{% block HEAD %}
+<style>
+  #knigi{
+    background-color: grey;
+    color: white;
+    border: 0;
+  }
+  #knigi:hover{
+    background-color: darkgrey;
+    color: white;
+    border: 0;
+  }
+  #series{
+    background-color: grey;
+    color: white;
+    border: 0;
+  }
+  #series:hover{
+    background-color: darkgrey;
+    color: white;
+    border: 0;
+  }
+  #genres{
+    background-color: grey;
+    color: white;
+    border: 0;
+  }
+  #genres:hover{
+    background-color: darkgrey;
+    color: white;
+    border: 0;
+  }
+  #autors{
+    background-color: grey;
+    color: white;
+    border: 0;
+  }
+  #autors:hover{
+    background-color: darkgrey;
+    color: white;
+    border: 0;
+  }
+  #zakaz{
+    background-color: grey;
+    color: white;
+    border: 0;
+  }
+  #zakaz:hover{
+    background-color: darkgrey;
+    color: white;
+    border: 0;
+  }
+</style>
+<!--  background-color: grey; -->
+{% endblock HEAD %}
+
+{% block BODY %}
+{% include "book-shop/book/includes/nav_bar.html" %}
+{% include 'book-shop/book/includes/container_book.html' %}
+{% endblock BODY %}
