@@ -7,8 +7,7 @@ from . import views
 app_name = 'profile'
 
 urlpatterns = [
-    path("view/", views.get_profile, name='profile_view'),
-    path("edit/", views.profile, name='profile_edit')
-    # path("logout/", views.CustomLogoutView.as_view(), name='logout'),
-    # path('signup/', views.SignUpView.as_view(), name='signup'),
+    path('', views.profile,  name='profile'),
+    path('update_profile/<int:pk>', views.AccountUpdate.as_view(), name="update-account"),
+
 ]
