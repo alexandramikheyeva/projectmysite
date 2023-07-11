@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block TITLE %}Login{% endblock TITLE %}
+
+{% block HEAD %}
+<style>
+  .a-hover{
+    text-decoration: none;
+  }
+  .a-hover:hover{
+    text-decoration: underline
+  }
+</style>
+{% endblock HEAD %}
+
+{% block BODY %}
+  {% if form.errors %}
+
+          {% for error in form.non_field_errors %}
+            <div class="alert alert-danger .alert-dismissible" role="alert">
+                <div class="text-left">
+                  <strong>Ошибка:</strong> {{ error }}<br />
+                </div>
+              </div>
+          {% endfor %}
+
+  {% endif %}
+  
+  {% if next %}
+      {% if user.is_authenticated %}
+          <p>net dostupa</p>
+      {% else %}
+          
+      {% endif %}
+  {% endif %}
+
+  <div style ="justify-content: center; align-items: center; display: flex; padding-top: 9%; padding-bottom: 10%;">
+    <form method="post" action="{% url 'staff:login' %}">
+      {% csrf_token %}
+      
+      <div style="width: 500px; height: 480px;border: 3px solid rgba(0, 0, 0, 0.5); border-radius: 20px;">
+        
+        <div style="width: 400px; height: 260px; margin-left: 50px; margin-top: 2%;">
+        <h2 style="font-size: 2em; font-family: 'poppins',sans-serif;">
+          Авторизация <ion-icon name="log-in-outline" style="position: absolute; font-size: 1.2em;"></ion-icon>
+        </h2>
+        {{form|crispy}}
+
+        <input type="submit" value="Вход" class = "btn btn-primary btn-lg"
+          style="width: 100%; padding: 10px; font-size: 16px; margin-top: 10px;">
+          
+          <p style="margin-top: 15px; font-family: 'poppins',sans-serif;">
+            Нет кабинета пользователя? 
+              <a href="{% url 'staff:signup' %}" class="a-hover">
+                Регистрация
+              </a>
+          </p>
+        
+        <input type="hidden" name="next" value="{{ next }}">
+        </div>
+      </div>
+    </form>
+  </div>
+    
+{% endblock BODY %}
