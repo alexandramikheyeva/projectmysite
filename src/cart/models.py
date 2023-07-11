@@ -1,126 +1,92 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.db.models import Sum
+from django.utils import timezone
+
 from bookshop.models import Book
 
 # Create your models here.
 
-class BookInCart(models.Model):
-    book = models.ForeignKey(
-        to=Book, 
-        on_delete=models.CASCADE
-    )
-    count = models.PositiveIntegerField(
-        default=1
-    )
-def calculate_total_price(book_in_cart):
-        return book_in_cart.count * book_in_cart.book.price 
+User = get_user_model()
+
+
+class BookInOrder(models.Model):
+    book = models.ForeignKey(to=Book, on_delete=models.CASCADE)
+    count = models.IntegerField(default=1)
+    
+    def get_total_price_in_order(self):
+        return self.count * self.book.book_price 
+
 
 class Cart(models.Model):
-    user = models.OneToOneField(
-        to=User, 
-        on_delete=models.PROTECT, 
-        null=True,
-        blank=True
-        )
-    books = models.ManyToManyField(
-        to=BookInCart,
-        verbose_name="Books in cart",
-        blank=True
-    )
-    created = models.DateTimeField(
-        verbose_name="Created",
-        auto_now_add=True,
-        auto_now=False
-    )
-    updated = models.DateTimeField(
-        verbose_name="Updated",
-        auto_now_add=False,
-        auto_now=True
-    )
-    phone = models.CharField(
-        max_length=15, 
-        null=True, 
-        blank=True, 
-        default=None
-    )
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE, unique=True)
+    books = models.ManyToManyField(to=BookInOrder, blank=True)
 
-    @property
-    def get_result_price_of_cart(self):
-        total_price=0
+    def check_if_book_already_in_cart(self, book_to_check):
         for book_in_cart in self.books.all():
-            price = book_in_cart.book.price
+            book = book_in_cart.book
+            if book == book_to_check:
+                return True
+
+    def get_total_price(self):
+        total_price = 0
+        for book_in_cart in self.books.all():
             count = book_in_cart.count
-            total_price+= price*count
+            price = book_in_cart.book.book_price
+            total_price += price * count
         return total_price
+
+    def get_total_count(self):
+        total_count = 0
+        for book_in_cart in self.books.all():
+            count = book_in_cart.count
+            total_count +=  count
+        return total_count
     
-    @property
+    def get_grouped_price(self):
+      grouped_price = []
+      for book_in_cart in self.books.all().select_related('book').values('book_id', 'book__book_name', 'book__book_price').annotate(count=Sum('count')):
+          count = book_in_cart['count']
+          price = book_in_cart['book__book_price']
+          book_name = book_in_cart['book__book_name']
+          grouped_price.append({'book_name': book_name, 'count': count, 'price': price, 'total_price': count * price})
+      return grouped_price
+    
     def update_count(self, item_id, count):
         book_in_cart = self.books.get(id=item_id)
         book_in_cart.count = count
         book_in_cart.save()
     
-    @property
-    def get_total_count_of_cart(self):
-        total_count = 0
-        for book_in_cart in self.books.all():
-            total_count += book_in_cart.count
-        return total_count
-    
-    @property
     def clear_cart(self):
-        self.books.clear()
-        return ...
-    
-    @property
-    def check_if_book_already_in_cart(self, book_to_check):
-        for book_in_cart in self.books.all():
-            checked_book= book_in_cart.book
-            if checked_book == book_to_check:
-                return True
+      self.books.clear()
     
 class Order(models.Model):
-    user = models.ForeignKey(
-        to=User, 
-        on_delete=models.SET_NULL, 
-        null=True, 
-        blank=True
-        )
-    books = models.ManyToManyField(
-        to=BookInCart,
-        verbose_name="Books in cart",
-        blank=True
-        )
-           
-    price = models.DecimalField(
-        max_digits=12, 
-        decimal_places=2, 
-        default=0,
-        blank=True
-        )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    books = models.ManyToManyField(to=BookInOrder, blank=True)
+    description =  models.TextField(blank=True, null=True)
 
     STATUS = (
-        ('In process', 'In process'),
-        ('Something wrong', 'Something wrong'),
-        ('Ready', 'Ready'),
+        ('В обработке', 'В обработке'),
+        ('Выполняется', 'Выполняется'),
+        ('Доставлено', 'Доставлено'),
+        ('Отменен', 'Отменен'),
     )
     status = models.CharField(
-        max_length=255,
-        choices = STATUS,
-        verbose_name="Order status",
-        blank=True
+        verbose_name = 'Статус заказа',
+        max_length = 11,
+        default= 'В обработке',
+        choices = STATUS
     )
-    created = models.DateTimeField(
-        verbose_name="Created",
-        auto_now_add=True,
-        auto_now=False
-    )
-    updated = models.DateTimeField(
-        verbose_name="Updated",
-        auto_now_add=False,
-        auto_now=True
-    )
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def str(self):
-        return f"Order {self.id} by {self.user.username} on {self.created_at}"
-
-
+        return f"Order {self.id} by {self.user.username} on {self.created_at}"     
+     
+    def get_total_count_in_order(self):
+        total_count = 0
+        for book_in_cart in self.books.all():
+            count = book_in_cart.count
+            total_count +=  count
+        return total_count 
