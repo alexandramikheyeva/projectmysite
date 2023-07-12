@@ -1,26 +1,101 @@
 {% extends 'base.html' %}
-{% block head %}
-{% endblock head %}
-{% block body %}
-<form method="GET" action="">
-    <input type="text" name="q" value="{{ query }}" placeholder="Поиск...">
-    <button type="submit">Найти</button>
-</form>
 
-{% if results %}
-<table>
-    <tr>
-        <th>Название книги</th>
-        <th>Ссылка на книгу</th>
-    </tr>
-    {% for book in results %}
-        <tr>
-            <td>{{ book.book_name }}</td>
-            <td><a href="{{ book.get_absolute_url }}">{{ book.book_name }}</a></td>
-        </tr>
+{% block HEAD %}
+<style>
+  /* Стили для текста в карточке */
+    #p-in-card-homepage-rating {
+      word-break: normal;
+      font-size: 12px;
+      font-weight: 400;
+      margin: 3px 0;
+      color: grey;
+      font-weight: 300;
+    }
+    /* Стили для блока книги */
+    .book-block {
+      display: inline-block;
+      min-width: 18%;
+      margin: 2% 3.2%;
+      
+      transition: all 0.3s ease-in-out;
+    }
+    .book-block:hover {
+      border-radius: 10px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
+    .card-body {
+      text-align: left;
+    }
+    .autor-in-card{
+      font-size: 12px;
+      color: darkslategrey;
+      font-weight: 300;
+    }
+    #price-in-card-homepage{
+      color: darkgreen;
+      font-size: 26px;
+      font-weight: 650;
+    }
+    #title_book{
+      font-weight: 600;
+      width: 218px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+    #p-query{
+      margin-top: 0;
+      color: seagreen;
+    }
+</style>
+{% endblock HEAD %}
+
+{% block BODY %}
+{% block content %}
+  
+  
+  {% if books %}
+  <h2 style="color:darkgreen; margin-bottom: 0;">Результаты поиска: </h2>
+  <p id="p-query">(поиск по запросу "{{query}}")</p>
+
+  <div class="container-book" style="text-align: left;">
+    {% for book in books %}
+      <a href="{% url 'bookshop:view-book' pk=book.pk %}" style="text-decoration: none; color: rgba(255, 255, 255, 0.55);">
+        <div class="book-block">
+          <div class="card" style="width: 100%; border:0">
+            <!-- Изображение книги -->
+            <img src="{{ book.book_picture_medium }}" width="auto" height ="300" style="max-width: 200px; margin-left: 10%; object-fit: fill;" class="card-img-top" alt=" ">
+            <div class="card-body" style="width: 250px;">
+              <!-- Название книги, автор, рейтинг -->
+              <div>
+                <h5 class="card-title">
+                  <p id="title_book">
+                    {{book.book_name}}
+                  </p>
+                  <p class="card-text" id="p-in-card-homepage-rating">
+                    {{book.autor}}  
+                  </p>
+                  <p class="autor-in-card">
+                    Рейтинг: {{book.rating}}
+                    <span style="color:gold;">★</span>
+                  </p>
+                  
+                </h5>
+              </div>
+              <!--  Цена -->
+              <p class="card-text" id="price-in-card-homepage">
+                {{book.book_price}} BYN
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
     {% endfor %}
-</table>
-{% else %}
-<p>Ничего не найдено</p>
-{% endif %}
+  </div>  
+  {% else %}
+  <h2 style="color: rgb(185, 4, 4);">Результаты поиска</h2>
+    <p style="color: rgb(185, 4, 4);">По вашему запросу ничего не найдено.</p>
+  {% endif %}
 {% endblock %}
+{% endblock BODY %}
