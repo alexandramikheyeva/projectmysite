@@ -28,6 +28,7 @@ class Cart(models.Model):
             if book == book_to_check:
                 return True
 
+
     def get_total_price(self):
         total_price = 0
         for book_in_cart in self.books.all():
