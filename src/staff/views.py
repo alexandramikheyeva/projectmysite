@@ -16,7 +16,7 @@ class LoginView(auth_views.LoginView):
 
 
 class LogoutView(auth_views.LogoutView):
-    next_page = 'homepage'
+    template_name = 'staff/logout.html'
 
 
 class SignUp(CreateView):
