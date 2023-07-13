@@ -1,15 +1,16 @@
-from django.urls import include, path
+from django.urls import path
 from . import views
 
 app_name = 'cart'
-
 urlpatterns = [
-  
-      path("add_to_cart/<int:pk>/", views.AddToCartView.as_view(), name="add_to_cart"),
-      path("cart/", views.CartView.as_view(), name="view_cart"),
-      path("orders_all/", views.CartView.orders_all, name="orders_all"),
-      path('checkout/', views.CartView.handle_cart, name='checkout'),
-      path('cart/<int:cart_id>/update/<int:item_id>/', views.CartView.as_view(), name='update_item'),
-      path('cart/<int:cart_id>/remove/<int:item_id>/', views.CartView.remove_item, name='remove_item'),
-      path('order/<int:order_id>/', views.CartView.order_details, name='order_details'),
-]
+    path('book_add_to_cart/<int:pk>', views.AddBookToCart.as_view(), name='book_add_to_cart.html'),
+    path('cart_view', views.CartView.as_view(), name='cart_view'),
+    path('cart/update/<int:cart_id>/<int:item_id>/', views.CartUpdateView.update_cart, name='update_cart'),
+    path('cart/update/<int:item_id>/', views.CartUpdateView.update_phone, name='update_phone'),
+    path('cart/update_comment/<int:item_id>/', views.CartUpdateView.make_comment, name='comment'),
+    path('cart/delete/<int:cart_id>/<int:item_id>/', views.CartUpdateView.delete_book, name='delete_book'),
+    path('order/view/<int:cart_id>', views.CartUpdateView.create_order, name='order_view'),
+    path("orders_all/", views.CartView.orders_all, name="orders_all"),
+    # path('order/<int:cart_id>', views.OrderView.as_view(), name='order_view'),
+    ]
+    
