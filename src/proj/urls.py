@@ -22,5 +22,5 @@ from directories import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('directories/', views.home_page)
+    path('directories/', name= 'directories')
 ]
