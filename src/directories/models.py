@@ -58,3 +58,21 @@ class Series(models.Model):
         null=True,
         blank=True        
     )    
+
+class Publishing(models.Model): 
+    def __str__(self):
+        return self.publishing_name
+    
+    def get_absolute_url(self):
+        return '/success'
+    
+    publishing_name = models.CharField(
+        verbose_name="Publishing name",  
+        max_length=255
+        )
+    
+    publishing_description = models.TextField(
+        verbose_name="Publishing information",   
+        null=True,
+        blank=True        
+    )    
