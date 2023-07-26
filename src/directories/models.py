@@ -1,0 +1,23 @@
+from django.db import models
+from django.urls import reverse_lazy
+from django.shortcuts import redirect
+# Create your models here.
+
+class Author(models.Model): 
+    def __str__(self):
+        return self.author_name
+    
+    def get_absolute_url(self):
+        return '/success'
+    
+    author_name = models.CharField(
+        verbose_name="Author name",  
+        max_length=255
+        )
+    
+    author_description = models.TextField(
+        verbose_name="Author information",   
+        null=True,
+        blank=True 
+           
+    )  
