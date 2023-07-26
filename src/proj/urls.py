@@ -22,5 +22,7 @@ from directories import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('directories/', name= 'directories')
+    path('directories/', include('directories.urls'), name='directories'),
+    
+  
 ]
