@@ -20,4 +20,23 @@ class Author(models.Model):
         null=True,
         blank=True 
            
-    )  
+    ) 
+
+class Genres(models.Model): 
+    def __str__(self):
+        return self.genre_name
+    
+    def get_absolute_url(self):
+        return '/success'
+    
+    
+    genre_name = models.CharField(
+        verbose_name="Genre name",  
+        max_length=255
+        )
+    
+    genre_description = models.TextField(
+        verbose_name="Genre description",   
+        null=True,
+        blank=True        
+    )
