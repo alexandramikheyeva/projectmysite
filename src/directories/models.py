@@ -40,3 +40,21 @@ class Genres(models.Model):
         null=True,
         blank=True        
     )
+
+class Series(models.Model): 
+    def __str__(self):
+        return self.series_name
+    
+    def get_absolute_url(self):
+        return '/success'
+    
+    series_name = models.CharField(
+        verbose_name="Series count",  
+        max_length=255
+        )
+    
+    series_description = models.TextField(
+        verbose_name="Series information",   
+        null=True,
+        blank=True        
+    )    
