@@ -25,5 +25,6 @@ urlpatterns = [
     path('directories/', include('directories.urls'), name='directories'),
     path('hp/', include('homepage.urls'), name='hp'),
     path('book/', include('book.urls'), name='book'),
+    path('search/', include('search.urls'), name='search'),
   
 ]
