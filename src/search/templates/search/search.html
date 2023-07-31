@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block head %}
+{% endblock head %}
+{% block body %}
+<form method="GET" action="">
+    <input type="text" name="q" value="{{ query }}" placeholder="Поиск...">
+    <button type="submit">Найти</button>
+</form>
+
+{% if results %}
+<table>
+    <tr>
+        <th>Название книги</th>
+        <th>Ссылка на книгу</th>
+    </tr>
+    {% for book in results %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></td>
+        </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>Ничего не найдено</p>
+{% endif %}
+{% endblock %}
