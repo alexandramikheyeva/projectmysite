@@ -22,10 +22,8 @@ from directories import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.HomePage.as_view(), name='home'),
     path('directories/', include('directories.urls'), name='directories'),
     path('hp/', include('homepage.urls'), name='hp'),
     path('book/', include('book.urls'), name='book'),
-     path('oh_no_problem', views.Oh_no_problem.as_view(), name='oh_no_problem.html')
   
 ]
