@@ -23,6 +23,6 @@ from directories import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('directories/', include('directories.urls'), name='directories'),
-    
+    path('book/', include('book.urls'), name='book')
   
 ]
