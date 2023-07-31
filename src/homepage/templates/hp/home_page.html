@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<a href="{% url 'directories:view_author.html' %}">Authors</a><br>
+<a href="{% url 'directories:view_genres.html' %}">Genres</a><br>
+<a href="{% url 'directories:view_series.html' %}">Series</a><br>
+<a href="{% url 'directories:view_publishing.html' %}">Publishing</a><br>
+<a href="{% url 'oh_no_problem.html' %}">testovaya</a><br>
+<h2>{{  user }} </h2>
+    
+{% endblock %}
