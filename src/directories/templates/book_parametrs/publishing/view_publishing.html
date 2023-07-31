@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <h1>Hi all, there is a list of all publishings</h1>
+  <div> Чтобы добавить автора жамите   <a href="{% url 'directories:add_publishing.html' %}">Add publishing</a>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Publishing Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+        <tr>
+          <td>{{ object.publishing_name }}</td>
+          <td>{{ object.publishing_description }}</td>
+          <td>
+            <a href="{% url 'directories:edit_publishing.html' pk=object.pk %}">Edit</a>
+            <a href="{% url 'directories:delete_publishing.html' pk=object.pk %}">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
