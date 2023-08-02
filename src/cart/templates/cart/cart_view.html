@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>Корзина пользователя {{ user }}</h1>
+    <table >
+        <thead>
+            <tr>
+                <th>Название   </th>
+                <th>Цена   </th>
+                <th>Количество   </th>
+                <th>Цена 2   </th> 
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for book in books_in_cart %}
+            <form action="{% url 'cart:update_cart' cart_id=cart.id item_id=book.id %}" method="POST">
+            {% csrf_token %}
+            <tr>
+            <td>{{ book.book.title }}</td>
+            <td>{{ book.book.price }}</td>
+            <td><input type="number" name="count" value="{{ book.count }}" min="1" max="{{  book.book.quantity_available  }}"></td>
+            <td>{{ book.calculate_total_price }}</td>
+            <input type="hidden" name="cart_id" value="{{ cart.id }}">
+            <input type="hidden" name="item_id" value="{{ book.id }}">
+            <td><button type="submit">Update</button></td></form>
+            <form action="{% url 'cart:delete_book' cart_id=cart.id item_id=book.id %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="cart_id" value="{{ cart.id }}">
+                <input type="hidden" name="item_id" value="{{ book.id }}">
+            <td><button type="submit">Delete</button></td></tr></form>
+        {% endfor %}
+
+        </tbody><br>
+    </table>
+
+    <table>
+        <tr>
+            <th>Total cart count:</th>
+            <td>{{ cart.get_total_count_of_cart }}</td></tr>
+
+        <tr>
+            <th>Total cart price:</th>
+            <td>{{ cart.get_result_price_of_cart }}</td></tr>
+        <tr>
+            <th>Phone number to contact:</th>
+            <td>{{ cart.phone }}</td></tr>
+        <tr>
+            <th>Order comment:</th>
+            <td>{{ cart.cart_comment }}</td></tr>
+    </table>
+    <form method="POST" action="{% url 'cart:comment' item_id=cart.id %}">
+        {% csrf_token %}
+        <div class="form-group" style="width: 50%;">
+          <label for="cart_comment">Комментарий к заказу:</label>
+          <textarea class="form-control" id="cart_comment" name="cart_comment" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Оставить коментарий к заказу</button>
+      </form>
+    {% if user.is_anonymous %}
+    <form action="{% url 'cart:update_phone' item_id=cart.id %}" method="POST">
+        {% csrf_token %}
+        <label for="phone">Введите номер телефона:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Обновить номер телефона</button>
+    </form>
+    {% endif %}
+    <form action="{% url 'cart:order_view' cart_id=cart.id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="cart_id" value="{{ cart.id }}">
+    <button type="submit">Submit order</button></form>
+    {% if user.is_authenticated %}
+      {% csrf_token %}
+      <form action="{% url 'cart:orders_all' %}" method="GET">
+        {% csrf_token %}
+        <input type="hidden" name="cart_id" value="{{ cart.id }}">
+        <button type="submit">View all orders</button></form>
+      
+      {% endif %}
+    
+    
+    
+{% endblock %}
