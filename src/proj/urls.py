@@ -28,5 +28,6 @@ urlpatterns = [
     path('book/', include('book.urls'), name='book'),
     path('search/', include('search.urls'), name='search'),
     path('profile/', include('user_profile.urls'), name='profile'),
+    path('staff/', include('staff.urls'), name='staff'),
   
 ]
