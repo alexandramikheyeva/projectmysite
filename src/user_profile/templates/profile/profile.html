@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block head %}
+<style>
+  .profile-table {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    float: left;
+  }
+  .btn {
+    margin-left: auto;
+  }
+  .order-table {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    float: right;
+  }
+</style>
+{% endblock head %}
+{% block body %}
+<div class="row">
+  <div class="col-md-6">
+    <h1>Профиль</h1>
+
+    {% if profile %}
+    <table class="profile-table">
+        <tr>
+          <th>Пользователь:</th>
+          <td>{{ profile.user }}</td></tr>
+        <tr>
+          <th>Имя:</th>
+          <td>{{ profile.first_profile_name }}</td></tr>
+        <tr>
+          <th>Фамилия:</th>
+          <td>{{ profile.last_profile_name }}</td></tr>
+        <tr>
+          <th>Email:</th>
+          <td>{{ profile.email_profile }}</td></tr>
+        <tr>
+          <th>Телефон:</th>
+          <td>{{ profile.phone }}</td></tr>
+        <tr>
+          <th>Группа:</th>
+          <td>{{ profile.group }}</td></tr>
+        <tr>
+          <th>Доп информация:</th>
+          <td>{{ profile.additional_info }}</td></tr>
+        <tr>
+          <th>Страна:</th>
+          <td>{{ profile.address.country }}</td></tr>
+        <tr>
+          <th>Город:</th>
+          <td>{{ profile.address.city }}</td></tr>
+        <tr>
+          <th>Код города:</th>
+          <td>{{ profile.address.postal_code }}</td></tr>
+        <tr>
+          <th>Основной адрес:</th>
+          <td>{{ profile.address.address_line_1 }}</td></tr>
+        <tr>
+          <th>Дополнительный адрес:</th>
+          <td>{{ profile.address.address_line_2 }}</td></tr>
+        <tr>
+          <th><a href="{% url 'profile:profile_edit' %}" class="btn btn-primary">Редактировать профиль</a> </th>
+          <td></td></tr>
+      </table>
+    
+  </div>
+
+  <div class="col-md-6">
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th>Пользователь</th>
+          <th>Стоимость</th>
+          <th>Статус</th>
+          <th>Создан</th>
+          <th>Количество книг</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>{{ order.user }}</td>
+          <td>{{ order.price }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.created }}</td>
+          <td>{{ order.books.count }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% else %}
+<p>Профиль не найден</p>
+{% endif %}
+{% endblock %}
