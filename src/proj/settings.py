@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'directories',
     'book',
     'homepage',
-    'search'
+    'search',
+    'cart'
 ]
 
 MIDDLEWARE = [
